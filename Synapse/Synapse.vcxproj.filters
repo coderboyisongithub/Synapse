@@ -13,10 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Activators">
+      <UniqueIdentifier>{59f13b4a-2b13-4c3f-be9b-923c07a36460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hebb%27s rule">
+      <UniqueIdentifier>{0649c5f8-f89a-43c8-baf0-3a17affe772b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{0da9a936-5944-480b-9ad1-2ed2a1a1f82e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\perceptron">
+      <UniqueIdentifier>{fd93c3bc-b244-41f2-89e4-dca2c8fe804a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Activators.h">
+      <Filter>Source Files\Activators</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hebbs.h">
+      <Filter>Source Files\Hebb%27s rule</Filter>
+    </ClInclude>
+    <ClInclude Include="Perceptron.h">
+      <Filter>Source Files\perceptron</Filter>
+    </ClInclude>
+    <ClInclude Include="activators_mat.h">
+      <Filter>Source Files\Activators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
