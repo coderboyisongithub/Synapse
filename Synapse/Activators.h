@@ -3,8 +3,8 @@
 
 namespace synp
 {
-
-	enum Activatortype
+	//using scoped enum to avoid decl conflicts.
+	enum class Activatortype
 	{
 		linear=0,
 		sigmoid,
