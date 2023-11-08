@@ -8,16 +8,17 @@ int main()
 {
 
 
-	synp::perceptron nn(784, 64, 10);
+	synp::perceptron net(2, 2, 1);
+	Matf dataset(
+		{{0,0,1},
+		{0,1,0},
+		{1,0,0},
+		{1,1,1} }
+	);
 
-	
+	Matf target = dataset.col(2);
 
-	Matf data(784, 1, arma::fill::randn);
-
-	Matf response=nn.predict(data.t());
-
-	response.t().print();
-
+	net.train(dataset.cols(arma::span(0, 1)), dataset.col(2));
 
 	return 0;
 }
