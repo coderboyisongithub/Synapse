@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="Activators.h" />
     <ClInclude Include="activators_mat.h" />
+    <ClInclude Include="Auto_associator.h" />
     <ClInclude Include="hebbs.h" />
     <ClInclude Include="Perceptron.h" />
     <ClInclude Include="types.h" />

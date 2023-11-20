@@ -1,7 +1,7 @@
 #pragma once
 
 #include "types.h"
-
+#include "Activators.h"
 
 namespace synp
 {

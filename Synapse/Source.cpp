@@ -2,7 +2,7 @@
 #include <stdio.h>
 #define ARMA_PRINT_EXCEPTIONS
 #include "Perceptron.h"
-
+#include "Auto_associator.h"
 
 int main()
 {
@@ -16,9 +16,13 @@ int main()
 		{1,1,1} }
 	);
 
-	Matf target = dataset.col(2);
+	synp::AutoAssociator mem(3,signalType::BINARY);
 
-	net.train(dataset.cols(arma::span(0, 1)), dataset.col(2));
+
+	row_space pattern({ 1,0,1 });
+	pattern.print();
+	mem.memorize(pattern);
+	mem.recall(row_space({ 1,0,1 }));
 
 	return 0;
 }
