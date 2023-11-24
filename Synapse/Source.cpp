@@ -20,9 +20,9 @@ int main()
 
 
 	row_space pattern({ 1,0,1 });
-	pattern.print();
+	pattern.print("INPUT");
 	mem.memorize(pattern);
-	mem.recall(row_space({ 1,0,1 }));
+	mem.recall(row_space({ 1,0,1 })).print("Recall");
 
 	return 0;
 }

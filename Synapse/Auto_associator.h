@@ -33,13 +33,10 @@ namespace synp
 	}
 	row_space AutoAssociator::recall(row_space signal)
 	{
-		signal.print("input signal");
 		row_space recall_ = signal * W;
-		
-		Matf s(recall_);
-		
-
-		
+		recall_=synp::bipolar(recall_);
+		//need to fix data structure conflict 
+		//need to test activator functions
 		return recall_;
 
 	}
