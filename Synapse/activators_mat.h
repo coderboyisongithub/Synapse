@@ -12,7 +12,8 @@ namespace synp
 
 		
 		Matf response(X.n_rows, X.n_cols);
-		Matf::iterator it = X.begin(), it_response = response.begin();
+		Matf::iterator it_response = response.begin();
+		Matf::iterator it = X.begin();
 		Matf::iterator end = X.end();
 		
 		for (it; it != end; ++it)
@@ -25,11 +26,16 @@ namespace synp
 	  Matf binary(Matf X)
 	  {
 
+		  Matf response(X.n_rows, X.n_cols);
+		  Matf::iterator it_response = response.begin();
 		  Matf::iterator it = X.begin();
 		  Matf::iterator end = X.end();
 		  for (it; it != end; ++it)
-			  ((*it) >= 0.0f ? 1.0f : 0.0f);
-		  return X;
+		  {
+			 ( (*it_response) >= 0.5f ? 1.0f : 0.0f);
+			  it_response++;
+		  }
+		  return response;
 	  }
 	  Matf identity(Matf X)
 	  {

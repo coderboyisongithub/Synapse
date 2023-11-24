@@ -8,15 +8,7 @@ int main()
 {
 
 
-	synp::perceptron net(2, 2, 1);
-	Matf dataset(
-		{{0,0,1},
-		{0,1,0},
-		{1,0,0},
-		{1,1,1} }
-	);
-
-	Matf target = dataset.col(2);
+	
 
 	return 0;
 }
