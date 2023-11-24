@@ -18,7 +18,5 @@ int main()
 
 	Matf target = dataset.col(2);
 
-	net.train(dataset.cols(arma::span(0, 1)), dataset.col(2));
-
 	return 0;
 }
