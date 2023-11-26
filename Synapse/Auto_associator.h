@@ -1,5 +1,6 @@
 #pragma once
 #include "types.h"
+#include "activators_mat.h"
 namespace synp
 {
 	class AutoAssociator

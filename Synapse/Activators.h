@@ -11,7 +11,7 @@ namespace synp
 		bipolar,
 		bipolar_sigmoid,
 		relu
-	};
+	}; 
 
 	float sigmoid(float x) { return (1 / (1 + exp2f(-x))); }
 	float linear(float x) { return x; }

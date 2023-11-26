@@ -8,16 +8,8 @@ int main()
 {
 
 
-	synp::perceptron net(2, 2, 1);
-	Matf dataset(
-		{{0,0,1},
-		{0,1,0},
-		{1,0,0},
-		{1,1,1} }
-	);
 
 	synp::AutoAssociator mem(3,signalType::BINARY);
-
 
 	row_space pattern({ 1,0,1 });
 	pattern.print("INPUT");

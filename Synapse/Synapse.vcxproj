@@ -112,7 +112,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>E:\Software\armadillo\lib;$(ProjectDir)\..\OpenBlas</AdditionalLibraryDirectories>
-      <AdditionalDependencies>armadillo_x64d.lib;openblas_custombuild.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>armadillo_x64d.lib;libopenblas.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(ProjectDir)..\OpenBlas\*.dll  $(OutDir)</Command>
