@@ -1,7 +1,7 @@
 #pragma once
 
 #include "types.h"
-
+#include "Activators.h"
 
 namespace synp
 {
@@ -9,33 +9,28 @@ namespace synp
 
 	  Matf bipolar(Matf X)
 	{
-
-		
-		Matf response(X.n_rows, X.n_cols);
-		Matf::iterator it_response = response.begin();
+		 Matf::iterator it_X = X.begin();
 		Matf::iterator it = X.begin();
 		Matf::iterator end = X.end();
-		
 		for (it; it != end; ++it)
 		{
-			(*it_response) = ((*it) >= 0.0 ? 1.0 : -1.0);
-			it_response++;
+			((*it_X) = (*it) >= 0.0f ? 1.0f : -1.0f);
+			it_X++;
 		}
-		return response;
+		return X;
 	}
 	  Matf binary(Matf X)
 	  {
-
-		  Matf response(X.n_rows, X.n_cols);
-		  Matf::iterator it_response = response.begin();
+		  Matf::iterator it_X = X.begin();
 		  Matf::iterator it = X.begin();
 		  Matf::iterator end = X.end();
+
 		  for (it; it != end; ++it)
 		  {
-			 ( (*it_response) >= 0.5f ? 1.0f : 0.0f);
-			  it_response++;
+			  ((*it_X) = (*it) >= 0.5f ? 1.0f : 0.0f);
+			  it_X++;
 		  }
-		  return response;
+		  return X;
 	  }
 	  Matf identity(Matf X)
 	  {

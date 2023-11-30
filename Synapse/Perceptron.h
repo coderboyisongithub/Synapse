@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <armadillo>
 #include "types.h"
 #include "Activators_mat.h"

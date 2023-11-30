@@ -19,11 +19,11 @@
     <Filter Include="Source Files\Hebb%27s rule">
       <UniqueIdentifier>{0649c5f8-f89a-43c8-baf0-3a17affe772b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Testing">
-      <UniqueIdentifier>{0da9a936-5944-480b-9ad1-2ed2a1a1f82e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\perceptron">
       <UniqueIdentifier>{fd93c3bc-b244-41f2-89e4-dca2c8fe804a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Associative Network">
+      <UniqueIdentifier>{520f8cdd-22d1-4080-b6a3-341d22e6b1b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="activators_mat.h">
       <Filter>Source Files\Activators</Filter>
+    </ClInclude>
+    <ClInclude Include="Auto_associator.h">
+      <Filter>Source Files\Associative Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
