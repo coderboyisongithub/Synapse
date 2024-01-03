@@ -33,7 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Tests</OutDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Tests\$(ProjectName)</OutDir>
     <IntDir>$(Platform)\$(Configuration)\Tests</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup />
@@ -69,6 +69,10 @@
       <AdditionalLibraryDirectories>..\..\armadillo\lib;..\..\OpenBlas</AdditionalLibraryDirectories>
       <AdditionalDependencies>armadillo_x64d.lib;libopenblas.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
