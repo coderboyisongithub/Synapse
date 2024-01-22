@@ -1,0 +1,3 @@
+[submodule "vendor/mnist"]
+	path = vendor/mnist
+	url = https://github.com/coderboyisongithub/mnist.git
