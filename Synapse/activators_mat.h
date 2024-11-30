@@ -7,7 +7,7 @@ namespace synp
 {
 
 
-	  Matf bipolar(Matf X)
+	 inline Matf bipolar(Matf X)
 	{
 		 Matf::iterator it_X = X.begin();
 		Matf::iterator it = X.begin();
@@ -19,7 +19,7 @@ namespace synp
 		}
 		return X;
 	}
-	  Matf binary(Matf X)
+	 inline Matf binary(Matf X)
 	  {
 		  Matf::iterator it_X = X.begin();
 		  Matf::iterator it = X.begin();
@@ -32,7 +32,7 @@ namespace synp
 		  }
 		  return X;
 	  }
-	  Matf identity(Matf X)
+	 inline  Matf identity(Matf X)
 	  {
 		  return X;
 	  }

@@ -30,6 +30,15 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Perceptron.cpp">
+      <Filter>Source Files\perceptron</Filter>
+    </ClCompile>
+    <ClCompile Include="Auto_associator.cpp">
+      <Filter>Source Files\Associative Network</Filter>
+    </ClCompile>
+    <ClCompile Include="point generator\generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Activators.h">
@@ -49,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="Auto_associator.h">
       <Filter>Source Files\Associative Network</Filter>
+    </ClInclude>
+    <ClInclude Include="BAM.h">
+      <Filter>Source Files\Associative Network</Filter>
+    </ClInclude>
+    <ClInclude Include="point generator\generator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

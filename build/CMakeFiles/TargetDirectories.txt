@@ -1,0 +1,3 @@
+C:/Users/rajsh/source/repos/Synapse/build/CMakeFiles/Synapse.dir
+C:/Users/rajsh/source/repos/Synapse/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/rajsh/source/repos/Synapse/build/CMakeFiles/ZERO_CHECK.dir
