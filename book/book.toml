@@ -1,0 +1,6 @@
+[book]
+authors = ["coderboyisongithub"]
+language = "en"
+multilingual = false
+src = "src"
+title = "documentation"

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Synapse Documentation</title>
+        <title>documentation</title>
         <meta name="robots" content="noindex">
 
 
@@ -31,8 +31,6 @@
 
         <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body class="sidebar-visible no-js">
     <div id="body-container">
@@ -91,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li><li class="chapter-item expanded "><a href="mnist_1.html"><strong aria-hidden="true">2.</strong> Chapter 2</a></li><li class="chapter-item expanded "><a href="convolution.html"><strong aria-hidden="true">3.</strong> Chapter 3</a></li><li class="chapter-item expanded "><a href="data_structures.html"><strong aria-hidden="true">4.</strong> Data structures</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -144,7 +142,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">Synapse Documentation</h1>
+                    <h1 class="menu-title">documentation</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -176,62 +174,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="autoassociative-memory"><a class="header" href="#autoassociative-memory">AutoAssociative memory</a></h1>
-<p>Network that can form an association with a signal to same signal.It shall be used to make machine develope familariaty with signal.
-There are two types of associative memory</p>
-<ul>
-<li>Binary</li>
-<li>Bipolar</li>
-</ul>
-<h2 id="bipolar"><a class="header" href="#bipolar">Bipolar</a></h2>
-<ul>
-<li><em>Design</em></li>
-<li><em>Reference</em></li>
-</ul>
-<h3 id="design"><a class="header" href="#design">Design</a></h3>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mnist"><a class="header" href="#mnist">MNIST</a></h1>
-<p>overview:</p>
-<ul>
-<li><em>cult of endianess in computing</em></li>
-<li><em>Challange in accessing data from idx(binary)</em></li>
-<li><em>Proposed algorithm for big2little endian</em></li>
-</ul>
-<h2 id="data"><a class="header" href="#data">data</a></h2>
-<p>Aim here to use mnist dataset is to benchmark every network I develope here.This will be basic testing and benchmark for network for its performance and correctness.Like algorithms are tested,so will the network.MNIST gives us small but effective solution to us.</p>
-<h2 id="cult-of-endianess-in-computing"><a class="header" href="#cult-of-endianess-in-computing">Cult of endianess in computing</a></h2>
-<p>While mnist is an common ground to demonstrate small netowrk.But with the same time its classic.When mnist dataset were prepared,Its creators were working in AT&amp;T labs.During that time the lab was equipped with IBM power pc,motorola and other ancestor that belonged to my laptop I am writing this doc with.</p>
-<p>Mnist creators used any one of these to build dataset into idx binary.All processors used over those systems were <em>Big endian</em>.Currently intel and amd are little endian,arm on other hand is both on choice.
-<em>creators of mnist must have communicated "we are using big endian"</em>,Life could have been easier.</p>
-<h2 id="challange-in-accessing-data-from-idxbinary"><a class="header" href="#challange-in-accessing-data-from-idxbinary">Challange in accessing data from idx(binary)</a></h2>
-<p>As a result of this.Big endian data is represented as little endian.Most significant "Byte" is switched with Least significant "Byte".One of the core algorithm here is to reverse the big endian to little endian.
-As synapse is developed in c/c++,there are proposed library function that provides function to do so.But it is strictly platform dependent.</p>
-<h2 id="proposed-algorithm-for-big2little-endian"><a class="header" href="#proposed-algorithm-for-big2little-endian">Proposed algorithm for big2little endian</a></h2>
-<p>before designing the algorithm, a picture need to be drawn about memory layout.
-very first informating in mnist file is magic number=2051(0x803)</p>
-<p>Big endian.(how it shall be laid in memory)</p>
-<div class="table-wrapper"><table><thead><tr><th>byte0</th><th>byte1</th><th>byte2</th><th>byte3</th></tr></thead><tbody>
-<tr><td>30</td><td>80</td><td>00</td><td>00</td></tr>
-</tbody></table>
-</div>
-<p>big endian.(how it is laying out)</p>
-<div class="table-wrapper"><table><thead><tr><th>byte3</th><th>byte2</th><th>byte1</th><th>byte0</th></tr></thead><tbody>
-<tr><td>00</td><td>00</td><td>80</td><td>03</td></tr>
-</tbody></table>
-</div>
-<pre><code class="language-cpp">int little = (big &amp; 0xFF000000) &gt;&gt; 24;
-little = (big &amp; 0x00FF0000) &gt;&gt; 8 | little;
-little = (big &amp; 0x0000FF00) &lt;&lt; 8 | little;
-little = (big &amp; 0x000000FF) &lt;&lt; 24 | little;
-return little;
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="convolution"><a class="header" href="#convolution">Convolution</a></h1>
-<p>How to perform convolution as fast as possible.</p>
-<p>Since doing convolution in frequency domain will me much cheaper there is no need to worry about padding at first place. performing pointwise multiplication is simpler to implement.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="data-structures"><a class="header" href="#data-structures">Data structures</a></h1>
-<h2 id="row_major"><a class="header" href="#row_major">row_major</a></h2>
-<pre><code class="language-C++">typedef arma::Row&lt;float&gt; row_space;
-</code></pre>
-<p>This imitates row space of a matrix.</p>
+                        <h1 id="adapter"><a class="header" href="#adapter">Adapter</a></h1>
 
                     </main>
 
@@ -283,14 +226,10 @@ return little;
         <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="mermaid.min.js"></script>
-        <script src="mermaid-init.js"></script>
 
         <script>
         window.addEventListener('load', function() {
-            MathJax.Hub.Register.StartupHook('End', function() {
-                window.setTimeout(window.print, 100);
-            });
+            window.setTimeout(window.print, 100);
         });
         </script>
 
