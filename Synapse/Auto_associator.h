@@ -41,7 +41,7 @@ namespace synp
 	}
 	void AutoAssociator::memorize(row_space signal)
 	{
-		W+= signal.t() * signal; 
+		W+= signal.t() * signal; //
 
 		W.diag().zeros();
 
