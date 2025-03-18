@@ -1,23 +1,66 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.15)
 
-project(Synapse)
+# Project Name
+project(Synapse LANGUAGES CXX)
 
-set(SOURCES Source.cpp)
+# Set C++ Standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Resolve Solution Directory (Parent of CMake Directory)
+set(SOLUTION_DIR ${CMAKE_SOURCE_DIR}/..)  
+
+# Include Paths
+include_directories(
+    ${SOLUTION_DIR}/armadillo/include       # Armadillo headers
+    ${SOLUTION_DIR}/vcpkg_installed/x64-windows/include  # VCPKG headers
+)
+
+# Library Paths
+link_directories(
+    ${SOLUTION_DIR}/armadillo/lib           # Armadillo libraries
+    ${SOLUTION_DIR}/OpenBlas                # OpenBLAS libraries
+)
+
+# Source Files
+set(SOURCES 
+    Source.cpp
+    Adapters/Adapter.cpp
+    Adapters/Matf_.cpp
+)
+
+# Header Files
 set(HEADERS
+    Activators.h
+    activators_mat.h
+    Auto_associator.h
+    hebbs.h
+    Perceptron.h
+    types.h
+    Adapters/Adapter.h
+    Adapters/Matf_.h
+)
 
-	Activators.h
-	activators_mat.h
-	Auto_associator.h
-	hebbs.h
-	Perceptron.h
-	types.h
-	)
+# Create Executable
+add_executable(Synapse ${SOURCES} ${HEADERS})
 
-add_executable(synapse SOURCES HEADERS)
+# Link External Libraries
+target_link_libraries(Synapse PRIVATE 
+    ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
+    ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
+)
 
+# Enable Debug Symbols in Debug Mode
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(Synapse PRIVATE DEBUG_MODE)
+endif()
 
+# Set Output Directory for Binaries
+set_target_properties(Synapse PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
 
-target_include_directories(synapse PUBLIC ${CMAKE_SOURCE_DIR}../armadillo/include )
-target_link_directories(Synapse PUBLIC ${CMAKE_SOURCE_DIR}../armadillo/lib)
-target_link_libraries(Synapse armadillo_x64d.lib) 
-
+# VCPKG Integration (if using)
+if(DEFINED CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Using VCPKG toolchain: ${CMAKE_TOOLCHAIN_FILE}")
+endif()
