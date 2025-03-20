@@ -16,8 +16,6 @@ Matf::Matf()
 {
 	impl = new Eigenadapter;
 }
-
-
 Matf::Matf(std::initializer_list<std::initializer_list<float>>list)
 {
 	impl = new Eigenadapter(list);
@@ -36,5 +34,14 @@ Matf  Matf::operator*(Matf second)
 {	
 	// work remaining
 	printf("\n multiplication operator:::: work remaining");
+
+	
+
+
 	return Matf();
 }
+void Matf::operator=(Matf second)
+{
+	*impl = *second.impl;
+}
+

@@ -13,4 +13,7 @@ public:
 	void t();
 	void print(std::string msg = { "" });
 	Matf operator*(Matf second);
+	void operator=(Matf second);
+	//Matf operator+(Matf second);
+	Matf operator-(Matf second);
 };

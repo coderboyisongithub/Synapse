@@ -398,3 +398,21 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+
+# vcpkg directory
+vcpkg/
+
+# vcpkg files
+vcpkg.json
+vcpkg-configuration.json
+
+# vcpkg build and installation directories
+vcpkg_installed/
+buildtrees/
+downloads/
+packages/
+
+# vcpkg manifest mode generated files
+vcpkg_manifest_install_*.log
