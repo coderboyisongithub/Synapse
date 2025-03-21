@@ -18,15 +18,23 @@ TO WORK ON NEXT: like assignment operator runs without error but does no change 
 int main()
 {
 
-	Matf w1{ {1,2},{3,4} }, w2{ {0,0},{0,0} }, w3{ {1,1},{1,1} };
-
-	w1.print("weight1");
-	//w2.print("weight2");
-
-	w1=w2;
-
-	w1.print("updated weight 1");
+	Matf w3{ {1,1},{1,1} };
 	
+	
+	{
+		Matf w1{ {1,2},{3,4} }, w2{ {0,0},{0,0} };
+		w1.print("w1");
+		w2.print("w2");
+		w3 = w2 * w3+w1;
+	}
+
+	w3.print("w3");
+	Matf w4(w3);
+	(w4+w4).print("w??");
+	
+	
+	
+	//w2.print("weight2");
 
 	return 0;
 }

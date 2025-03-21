@@ -4,14 +4,7 @@
 
 Eigenadapter::Eigenadapter()
 {
-
-
 	impl = eigenptr(new Eigen::MatrixXf(2, 2));
-	Eigen::MatrixXf* obj = &impl->derived(); //its highly confusing ..have to fix this
-	*obj << 1.0f, 2.0f, 3.0f, 4.0f;
-
-
-
 }
 Eigenadapter::Eigenadapter(Eigen::MatrixXf mtx)
 {
@@ -19,9 +12,9 @@ Eigenadapter::Eigenadapter(Eigen::MatrixXf mtx)
 }
 Eigenadapter::Eigenadapter(Eigenadapter& obj)
 {
-	printf("copy copy");
-}
 
+	impl = eigenptr(new Eigen::MatrixXf(obj.impl->derived()));
+}
 
 Eigenadapter::Eigenadapter(std::initializer_list<std::initializer_list<float>> ilist)
 {
@@ -62,15 +55,16 @@ Eigenadapter Eigenadapter::operator*(Eigenadapter second)
 void Eigenadapter::operator=(Eigenadapter second)
 {
 
+
 	//doee it perform eigen deep copy or shallow copy
-	*impl = *second.impl;
+	(*impl).derived() = (*second.impl).derived();
+	//now what about second.impl??
+
 
 }
 
 Eigenadapter Eigenadapter::operator+(Eigenadapter second)
 {
-
-
 	return Eigenadapter((*impl).derived() + (*second.impl).derived());
 }
 

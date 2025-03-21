@@ -9,11 +9,14 @@ class Matf
 	 Eigenadapter* impl;
 public:
 	Matf();
+	Matf(Eigenadapter obj);
 	Matf(std::initializer_list<std::initializer_list<float>> list);
+	Matf(Matf& obj);
 	void t();
 	void print(std::string msg = { "" });
 	Matf operator*(Matf second);
 	void operator=(Matf second);
 	//Matf operator+(Matf second);
 	Matf operator-(Matf second);
+	Matf operator+(Matf second);
 };

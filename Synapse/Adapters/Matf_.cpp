@@ -16,6 +16,16 @@ Matf::Matf()
 {
 	impl = new Eigenadapter;
 }
+
+Matf::Matf(Eigenadapter obj)
+{
+	impl = new Eigenadapter(obj);
+}
+Matf::Matf(Matf& obj)
+{
+	impl = new Eigenadapter(*obj.impl); 
+}
+
 Matf::Matf(std::initializer_list<std::initializer_list<float>>list)
 {
 	impl = new Eigenadapter(list);
@@ -31,17 +41,31 @@ void Matf::print(std::string msg)
 	impl->print(msg);
 }
 Matf  Matf::operator*(Matf second)
-{	
-	// work remaining
-	printf("\n multiplication operator:::: work remaining");
+{ 
+	//this will trigger * operator of eigen adapter and will return and multiplied eigen adapter.
+	Eigenadapter tmp = (*impl) * (*(second.impl));
+	// It can be moved later..in later work..
 
-	
 
+	tmp.print();
 
-	return Matf();
+	//What to do here?? How can I pass adapter to mat f without giving a way
+	// to initialize matf with adapter...this is what I dont want to expose.
+	return Matf(tmp);
 }
 void Matf::operator=(Matf second)
 {
 	*impl = *second.impl;
 }
+
+Matf Matf::operator-(Matf second)
+{
+
+	return Matf((*impl)	-	(*(second.impl)));
+}
+Matf Matf::operator+(Matf second)
+{
+	return Matf((*impl) + (*(second.impl)));
+}
+
 
