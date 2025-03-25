@@ -7,20 +7,16 @@ project(Synapse LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Resolve Solution Directory (Parent of CMake Directory)
-set(SOLUTION_DIR ${CMAKE_SOURCE_DIR}/..)  
+# Find required packages
+find_package(Eigen3 REQUIRED)
+find_package(Armadillo REQUIRED)
 
-# Include Paths
-include_directories(
-    ${SOLUTION_DIR}/armadillo/include       # Armadillo headers
-    ${SOLUTION_DIR}/vcpkg_installed/x64-windows/include  # VCPKG headers
-)
-
-# Library Paths
-link_directories(
-    ${SOLUTION_DIR}/armadillo/lib           # Armadillo libraries
-    ${SOLUTION_DIR}/OpenBlas                # OpenBLAS libraries
-)
+# On macOS, OpenBLAS is installed by Homebrew in a specific location
+if(APPLE)
+    set(OpenBLAS_HOME "/opt/homebrew/opt/openblas")
+    set(OpenBLAS_INCLUDE_DIRS "${OpenBLAS_HOME}/include")
+    set(OpenBLAS_LIBRARIES "${OpenBLAS_HOME}/lib/libopenblas.dylib")
+endif()
 
 # Source Files
 set(SOURCES 
@@ -46,8 +42,15 @@ add_executable(Synapse ${SOURCES} ${HEADERS})
 
 # Link External Libraries
 target_link_libraries(Synapse PRIVATE 
-    ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
-    ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
+    Eigen3::Eigen
+    ${ARMADILLO_LIBRARIES}
+    ${OpenBLAS_LIBRARIES}
+)
+
+# Include directories
+target_include_directories(Synapse PRIVATE
+    ${ARMADILLO_INCLUDE_DIRS}
+    ${OpenBLAS_INCLUDE_DIRS}
 )
 
 # Enable Debug Symbols in Debug Mode
@@ -59,8 +62,3 @@ endif()
 set_target_properties(Synapse PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
-
-# VCPKG Integration (if using)
-if(DEFINED CMAKE_TOOLCHAIN_FILE)
-    message(STATUS "Using VCPKG toolchain: ${CMAKE_TOOLCHAIN_FILE}")
-endif()
