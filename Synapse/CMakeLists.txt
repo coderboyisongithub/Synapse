@@ -47,30 +47,30 @@ set(HEADERS
 # Create Executable
 add_executable(Synapse ${SOURCES} ${HEADERS})
 
-# Platform-specific settings
+# Link External Libraries
+target_link_libraries(Synapse PRIVATE 
+    Eigen3::Eigen
+    ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
+    ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
+)
+
+# macOS-specific settings
 if(APPLE)
-    # macOS-specific settings
+    # Set OpenBLAS paths for macOS
     set(OpenBLAS_HOME "/opt/homebrew/opt/openblas")
     set(OpenBLAS_INCLUDE_DIRS "${OpenBLAS_HOME}/include")
     set(OpenBLAS_LIBRARIES "${OpenBLAS_HOME}/lib/libopenblas.dylib")
     
-    # Link External Libraries for macOS
+    # Override library paths for macOS
     target_link_libraries(Synapse PRIVATE 
         Eigen3::Eigen
         ${SOLUTION_DIR}/armadillo/lib/libarmadillo.dylib
         ${OpenBLAS_LIBRARIES}
     )
     
-    # Include directories for macOS
+    # Add OpenBLAS include directory for macOS
     target_include_directories(Synapse PRIVATE
         ${OpenBLAS_INCLUDE_DIRS}
-    )
-else()
-    # Windows-specific settings
-    target_link_libraries(Synapse PRIVATE 
-        Eigen3::Eigen
-        ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
-        ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
     )
 endif()
 
