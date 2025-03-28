@@ -421,3 +421,4 @@ packages/
 # vcpkg manifest mode generated files
 vcpkg_manifest_install_*.log
 /CMakeLists.txt
+build/
