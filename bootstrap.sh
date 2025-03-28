@@ -17,6 +17,12 @@ print_colored() {
     esac
 }
 
+# Check if running on macOS
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    print_colored "red" "This script is for macOS only. Please use bootstrap.ps1 for Windows."
+    exit 1
+fi
+
 # Check if vcpkg is available in the system
 if command -v vcpkg &> /dev/null; then
     print_colored "green" "System-wide vcpkg found: $(which vcpkg)"
@@ -52,42 +58,32 @@ else
     vcpkg install
 fi
 
-# Check if CMake is installed
-if ! command -v cmake &> /dev/null; then
-    print_colored "yellow" "CMake not found! Installing using Homebrew..."
-    
-    # Check if Homebrew is installed
-    if ! command -v brew &> /dev/null; then
-        print_colored "yellow" "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    
-    # Install CMake using Homebrew
-    brew install cmake
-    
-    if ! command -v cmake &> /dev/null; then
-        print_colored "red" "CMake installation failed!"
-        exit 1
-    fi
+# Check if Homebrew is installed
+if ! command -v brew &> /dev/null; then
+    print_colored "yellow" "Homebrew not found! Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Run CMake to list available generators
-print_colored "yellow" "Available CMake Generators:"
-cmake --help | grep -A 50 "Generators"
+# Install required packages
+print_colored "yellow" "Installing required packages..."
+brew install cmake armadillo openblas eigen
 
-# Create and switch to build directory
-print_colored "yellow" "Switching to build directory"
-mkdir -p build
-cd build
+# Create build directory in the Synapse subdirectory
+print_colored "yellow" "Creating build directory..."
+cd Synapse
 
-# Prompt for generator selection
-read -p "Enter the generator from the list above: " selected_generator
-print_colored "cyan" "Selected generator is: $selected_generator"
+# Show available build systems and prompt for choice
+print_colored "cyan" "Available CMake Generators:"
+cmake --help | grep -A 50 "Generators" | grep -v "Generators"
 
-# Prompt for confirmation
+print_colored "yellow" "Please copy and paste the generator name from the list above"
+read -p "Enter generator name: " selected_generator
+
+print_colored "cyan" "Selected generator: $selected_generator"
+
 while true; do
     read -p "Do you want to continue? (yes/no): " response
-    response=$(echo "$response" | tr '[:upper:]' '[:lower:]' | xargs)
+    response=$(echo "$response" | tr '[:upper:]' '[:lower:]' | tr -d ' ')
     
     if [ "$response" = "yes" ]; then
         print_colored "green" "Proceeding..."
@@ -99,9 +95,21 @@ while true; do
     fi
 done
 
-# Run CMake configuration
-cmake ../synapse -G "$selected_generator" 
+print_colored "yellow" "Cleaning build directory..."
+rm -rf build
+mkdir -p build
+cd build
 
-# Run the program
-print_colored "yellow" "Running the program..."
-./bin/Synapse 
+print_colored "cyan" "Configuring with $selected_generator..."
+cmake .. -G "$selected_generator"
+
+print_colored "cyan" "Building..."
+if [[ "$selected_generator" == "Ninja" ]]; then
+    ninja
+elif [[ "$selected_generator" == "Xcode" ]]; then
+    xcodebuild -configuration Debug
+else
+    make
+fi
+
+print_colored "green" "Build complete!" 

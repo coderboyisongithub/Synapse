@@ -2,6 +2,18 @@
 $vcpkgDir = "$PSScriptRoot\vcpkg"
 $vcpkgExe = "$vcpkgDir\vcpkg.exe"
 
+# Check if Ninja is installed
+$ninjaExe = (Get-Command ninja -ErrorAction SilentlyContinue).Source
+if (-not $ninjaExe) {
+    Write-Host "Ninja not found! Installing using winget..." -ForegroundColor Yellow
+    winget install Ninja-build.Ninja --silent
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+    $ninjaExe = (Get-Command ninja -ErrorAction SilentlyContinue).Source
+    if (-not $ninjaExe) {
+        Write-Host "Ninja installation failed!" -ForegroundColor Red
+        exit 1
+    }
+}
 
 # Ninja,vcpkg
 # Check if vcpkg is available in the system environment
@@ -47,11 +59,10 @@ else
     & vcpkg install 
 }
 
-
 # vcpkg section up.
 
 Write-Host "Performing Cmake Configuration" -ForegroundColor Yellow
-    # Check if CMake is installed
+# Check if CMake is installed
 $cmakeExe = (Get-Command cmake -ErrorAction SilentlyContinue).Source
 
 if (-not $cmakeExe) 
@@ -71,9 +82,7 @@ if (-not $cmakeExe)
     }
 }
 
-
 # Run CMake to list available generators
-
 $cmakeGenerators = & cmake --help | Select-String "Generators" -Context 0,50 | Out-String
 Write-Host "Available CMake Generators: $cmakeGenerators" 
 
@@ -104,4 +113,6 @@ do {
 
 } while ($true)  # Infinite loop until 'yes' is entered
  
-& cmake ../synapse -G $selected_generator 
+& cmake ../synapse -G $selected_generator
+& ninja
+& .\bin\Synapse.exe 
