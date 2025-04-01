@@ -21,6 +21,8 @@ Matf::Matf()
 
 Matf::Matf(Matf& obj)
 {
+
+	//std::cerr << "\nmatf copy constructor";
 	impl = new Eigenadapter(*obj.impl); 
 }
 
@@ -28,9 +30,35 @@ Matf::Matf(Matf& obj)
 // this is where I was working on..I was working on implementing move constructor for matf
 Matf::Matf(Matf&& obj)
 {
-	
+	//The goal of a move consytructor shall be to perform complete owner
+	//ship of adapter and trasnfer to target.
+	//here ownership is a pointer to 
+
+	std::cerr << "\nMatf Move constructor";
+	this->impl = obj.impl;
+	obj.impl = nullptr;
+	return; 
 }
 
+
+Matf::Matf(Eigenadapter obj,bool move)
+{
+	switch (move)
+	{
+	case false:
+	{
+		impl = new Eigenadapter(obj);
+		break;
+	}
+	case true:
+	{
+		impl = new Eigenadapter(std::move(obj));//? how to solve this?
+		break;
+	}
+	}
+	return;
+	
+}
 
 
 Matf::Matf(size_t row, size_t col)
@@ -60,6 +88,7 @@ void Matf::t()
 
 void Matf::print(std::string msg)
 {
+	checkfor(impl != nullptr, "Matf maybe moved or deleted");
 	impl->print(msg);
 }
 
@@ -85,27 +114,37 @@ Matf  Matf::operator*(Matf &second)
 
 
 
-void Matf::operator=(Matf second)
+void Matf::operator=(Matf& second)
 {
-	*impl = std::move(*second.impl);
+	//std::cerr << "\n Matf copy assign";
+	*impl = *second.impl;
 	 
 }
 
 
+void Matf::operator=(Matf&& second)
+{
+	//std::cerr << "\n Matf move assign";
+	this->impl = second.impl;
+	second.impl = nullptr;
+	return;
+}
 
 
-Matf Matf::operator-(Matf second)
+
+Matf Matf::operator-(Matf&second)
 {
 
-	return Matf((*impl)	-	(*(second.impl)));
+	return std::move(Matf((*impl)	-	(*(second.impl))));
 }
 
 
 
 
-Matf Matf::operator+(Matf second)
+Matf Matf::operator+(Matf& second)
 {
-	return Matf((*impl) + (*(second.impl)));
+	//std::cerr << "\n Matf + operator";
+	return   Matf((*impl) + (*(second.impl))); //the Matf is initialized with a new adapter of that has sum
 }
 
 

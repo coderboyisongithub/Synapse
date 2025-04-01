@@ -6,22 +6,24 @@
 
 Eigenadapter::Eigenadapter()
 {
-	impl = eigenptr(new Eigen::MatrixXf(2, 2));
+	uptr = eigenptr(new Eigen::MatrixXf(2, 2));
 }
 
 
 
 Eigenadapter::Eigenadapter(Eigenadapter& obj)
 {
-	std::cerr << "\n copy called";
-	impl = eigenptr(new Eigen::MatrixXf(obj.impl->derived()));
+	//std::cerr << "\n Adapter copy called";
+	uptr = eigenptr(new Eigen::MatrixXf(obj.uptr->derived()));
 }
 
 
 Eigenadapter::Eigenadapter(Eigenadapter&& obj)
 {
-	std::cerr << "\n move called";
-	impl = eigenptr(new Eigen::MatrixXf());
+	//std::cerr << "\n Adapter move called";
+	uptr = std::move(obj.uptr); //what will this move?? pointer only or whole matrix ownership 
+	//..its a unique ptr..If I move then obj will have to be nullified otherwise its not unique
+
 }
 
 
@@ -29,8 +31,8 @@ Eigenadapter::Eigenadapter(Eigenadapter&& obj)
 
 Eigenadapter::Eigenadapter(size_t row, size_t col)
 {
-	impl = eigenptr(new Eigen::MatrixXf(row,col));
-	impl->derived().Random();
+	uptr = eigenptr(new Eigen::MatrixXf(row,col));
+	uptr->derived().Random();
 	this->print();
 
 }
@@ -38,14 +40,14 @@ Eigenadapter::Eigenadapter(size_t row, size_t col)
 
 Eigenadapter::Eigenadapter(Eigen::MatrixXf mtx)
 {
-	impl = eigenptr(new Eigen::MatrixXf(mtx));
+	uptr = eigenptr(new Eigen::MatrixXf(mtx));
 }
 
 
 Eigenadapter::Eigenadapter(std::initializer_list<std::initializer_list<float>> ilist)
 {
 
-	impl = eigenptr(new Eigen::MatrixXf(ilist));
+	uptr = eigenptr(new Eigen::MatrixXf(ilist));
 
 }
 
@@ -67,7 +69,8 @@ void Eigenadapter::t() const
 
 void Eigenadapter::print(std::string msg) const
 {
-	std::cerr<<"\n"<<msg<<"->\n" << impl->derived();
+	checkfor(uptr != nullptr,"Adapter maybe moved or deleted");
+	std::cerr<<"\n"<<msg<<"->\n" << uptr->derived();
 }
 
 
@@ -77,19 +80,23 @@ void Eigenadapter::print(std::string msg) const
 
 
 
+
+void Eigenadapter::operator=(Eigenadapter &second)
+{
+
+
+	//doee it perform eigen deep copy or shallow copy
+	(*uptr).derived() = (*second.uptr).derived();
+	//now what about second.uptr??
+}
 void Eigenadapter::operator=(Eigenadapter&& second)
 {
 
-	std::cerr << "\n move operator";
+
+	//doee it perform eigen deep copy or shallow copy
+	(*uptr).derived() = std::move((*second.uptr).derived());
+	//now what about second.uptr??
 }
-//void Eigenadapter::operator=(Eigenadapter &second)
-//{
-//
-//
-//	//doee it perform eigen deep copy or shallow copy
-//	(*impl).derived() = (*second.impl).derived();
-//	//now what about second.impl??
-//}
 
 
 
@@ -100,7 +107,7 @@ Eigenadapter Eigenadapter::operator*(Eigenadapter& second)
 	//the tmp variable will go out of scope and ptr will be left dangling. To tackle this r-val ref.right now create a copy...for now
    //This will call two copy constructor one for this and another for returning tmp adapter
 	std::cerr << "\noperator: *";
-	return (Eigenadapter(Eigen::MatrixXf(impl->derived() * second.impl->derived())));
+	return (Eigenadapter(Eigen::MatrixXf(uptr->derived() * second.uptr->derived())));
 
 }
 
@@ -108,10 +115,10 @@ Eigenadapter Eigenadapter::operator*(Eigenadapter& second)
 
 Eigenadapter Eigenadapter::operator+(Eigenadapter &second)
 {
+	//std::cerr << "\n adapter + operator";
 
-	//this is using copy.. while resulted can be just moved.
-	//the result will be moved only not the operand.
-	return Eigenadapter((*impl).derived() + (*second.impl).derived());
+	//Now the temp results are moved to adapter pointer in matf;
+	return std::move((*uptr).derived() + (*second.uptr).derived());
 }
 
 
@@ -120,7 +127,7 @@ Eigenadapter Eigenadapter::operator+(Eigenadapter &second)
 Eigenadapter Eigenadapter::operator-(Eigenadapter &second)
 {
 	//same need for move over copy
-	return Eigenadapter((*impl).derived() + (*second.impl).derived());
+	return Eigenadapter((*uptr).derived() + (*second.uptr).derived());
 
 }
 
@@ -128,7 +135,7 @@ Eigenadapter Eigenadapter::operator-(Eigenadapter &second)
 //void Eigenadapter::operator/(float first)
 //{
 //
-//	return Eigenadapter((*impl).derived() / first);
+//	return Eigenadapter((*uptr).derived() / first);
 //
 //}
 

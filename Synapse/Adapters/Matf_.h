@@ -1,5 +1,7 @@
 #include "Adapter.h"
 
+
+
 class Matf
 {
 	/*
@@ -7,7 +9,10 @@ class Matf
 	 "impl" is pointer to Eigenadapter. The adapter has uniq_ptr to eigenbase
 	*/
 
+	
 	Eigenadapter* impl;
+	Matf(Eigenadapter obj, bool move = false);
+
 public:
 	
 	
@@ -16,12 +21,10 @@ public:
 	
 	Matf(size_t row, size_t col);
 	
-
 	Matf(Matf&& obj);
 	
-	Matf(Eigenadapter& obj);
-	
 
+	
 	
 	Matf(std::initializer_list<std::initializer_list<float>> list);
 	
@@ -43,12 +46,12 @@ public:
 	
 
 
-	void operator=(Matf second);
-	//Matf operator+(Matf second);
-	Matf operator-(Matf second);
+	void operator=(Matf& second);
+
+	void operator=(Matf&& second);
+
+	Matf operator-(Matf& second);
 
 
-
-
-	Matf operator+(Matf second);
+	Matf operator+(Matf& second);
 };
