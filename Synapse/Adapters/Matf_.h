@@ -10,7 +10,7 @@ class Matf
 	*/
 
 	
-	Eigenadapter* impl;
+	Eigenadapter* impl;  //
 	Matf(Eigenadapter obj, bool move = false);
 
 public:

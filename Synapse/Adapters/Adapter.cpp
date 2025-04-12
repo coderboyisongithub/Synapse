@@ -83,7 +83,7 @@ void Eigenadapter::print(std::string msg) const
 
 void Eigenadapter::operator=(Eigenadapter &second)
 {
-
+	//std::cerr << "\n adapter copy assign";
 
 	//doee it perform eigen deep copy or shallow copy
 	(*uptr).derived() = (*second.uptr).derived();
@@ -92,7 +92,7 @@ void Eigenadapter::operator=(Eigenadapter &second)
 void Eigenadapter::operator=(Eigenadapter&& second)
 {
 
-
+	//std::cerr << "\n adapter move assign";
 	//doee it perform eigen deep copy or shallow copy
 	(*uptr).derived() = std::move((*second.uptr).derived());
 	//now what about second.uptr??
@@ -106,8 +106,9 @@ Eigenadapter Eigenadapter::operator*(Eigenadapter& second)
 {
 	//the tmp variable will go out of scope and ptr will be left dangling. To tackle this r-val ref.right now create a copy...for now
    //This will call two copy constructor one for this and another for returning tmp adapter
-	std::cerr << "\noperator: *";
-	return (Eigenadapter(Eigen::MatrixXf(uptr->derived() * second.uptr->derived())));
+	//std::cerr << "\noperator: *";
+	Eigen::MatrixXf tmp = std::move((uptr->derived()) * (second.uptr->derived()));
+	return (std::move(tmp));
 
 }
 
@@ -127,7 +128,7 @@ Eigenadapter Eigenadapter::operator+(Eigenadapter &second)
 Eigenadapter Eigenadapter::operator-(Eigenadapter &second)
 {
 	//same need for move over copy
-	return Eigenadapter((*uptr).derived() + (*second.uptr).derived());
+	return Eigenadapter((*uptr).derived() - (*second.uptr).derived());
 
 }
 

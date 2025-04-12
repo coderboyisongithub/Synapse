@@ -34,7 +34,7 @@ Matf::Matf(Matf&& obj)
 	//ship of adapter and trasnfer to target.
 	//here ownership is a pointer to 
 
-	std::cerr << "\nMatf Move constructor";
+	//std::cerr << "\nMatf Move constructor";
 	this->impl = obj.impl;
 	obj.impl = nullptr;
 	return; 
@@ -43,6 +43,7 @@ Matf::Matf(Matf&& obj)
 
 Matf::Matf(Eigenadapter obj,bool move)
 {
+	move = true;
 	switch (move)
 	{
 	case false:
@@ -96,13 +97,13 @@ void Matf::print(std::string msg)
 Matf  Matf::operator*(Matf &second)
 { 
 	//this will trigger * operator of eigen adapter and will return and multiplied eigen adapter.
-	Eigenadapter tmp = std::move((*impl) * (*(second.impl)));
+	
 
 	// It can be moved later..in later work.
 	//What to do here?? How can I pass adapter to mat f without giving a way
 	// to initialize matf with adapter...this is what I dont want to expose.
 
-	return Matf(tmp);
+	return std::move((	 (*impl) * (*(second.impl)	)));
 }
 
 
@@ -116,7 +117,7 @@ Matf  Matf::operator*(Matf &second)
 
 void Matf::operator=(Matf& second)
 {
-	//std::cerr << "\n Matf copy assign";
+//	std::cerr << "\n Matf copy assign";
 	*impl = *second.impl;
 	 
 }
@@ -132,7 +133,7 @@ void Matf::operator=(Matf&& second)
 
 
 
-Matf Matf::operator-(Matf&second)
+Matf Matf::operator-(Matf& second)
 {
 
 	return std::move(Matf((*impl)	-	(*(second.impl))));
@@ -144,7 +145,7 @@ Matf Matf::operator-(Matf&second)
 Matf Matf::operator+(Matf& second)
 {
 	//std::cerr << "\n Matf + operator";
-	return   Matf((*impl) + (*(second.impl))); //the Matf is initialized with a new adapter of that has sum
+	return   std::move(	Matf((*impl) + (*(second.impl)	))); //the Matf is initialized with a new adapter of that has sum
 }
 
 
