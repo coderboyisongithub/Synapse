@@ -30,7 +30,7 @@ This will install dependency and configure Cmake for you and after configuration
 
 Getting your system ready first.
 ```bash
-sudo apt install cmake zip wget curl ninja-build build-essential pkg-config autoconf 
+sudo apt install cmake zip wget curl ninja-build build-essential pkg-config autoconf clang
 libc++-dev libc++abi-dev
 
 ```
