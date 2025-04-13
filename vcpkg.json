@@ -1,5 +1,5 @@
 {
   "dependencies": [
-    "eigen3"
+    "eigen3","openblas"
   ]
 }

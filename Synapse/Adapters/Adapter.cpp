@@ -119,7 +119,7 @@ Eigenadapter Eigenadapter::operator+(Eigenadapter &second)
 	//std::cerr << "\n adapter + operator";
 
 	//Now the temp results are moved to adapter pointer in matf;
-	return std::move((*uptr).derived() + (*second.uptr).derived());
+	return std::move(	Eigenadapter(	std::move((*uptr).derived() + (*second.uptr).derived())));
 }
 
 

@@ -13,7 +13,7 @@
 Report: operators are not working properly. it has been declered and defined\
 but yet to function properly..
 
-TO WORK ON NEXT:  remove the last copy constructor used by matf class;
+TO WORK ON NEXT: dev branch build fails when cloned;
 
 */
 
