@@ -30,10 +30,12 @@ This will install dependency and configure Cmake for you and after configuration
 
 Getting your system ready first.
 ```bash
-sudo apt install cmake zip wget curl ninja-build build-essential pkg-config autoconf clang
-libc++-dev libc++abi-dev
-
+sudo apt install cmake zip wget curl ninja-build build-essential pkg-config autoconf
 ```
+```bash
+sudo apt install clang libc++-dev libc++abi-dev
+```
+
 
 - ``git clone --recursive https://github.com/coderboyisongithub/Synapse.git``
 - Open terminal in same cloned directory as working directory.
