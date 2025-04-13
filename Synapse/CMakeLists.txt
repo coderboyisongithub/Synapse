@@ -4,25 +4,15 @@ cmake_minimum_required(VERSION 3.15)
 project(Synapse LANGUAGES CXX)
 
 # Set C++ Standard
+if(LINUX or APPLE)
+        set(CMAKE_CXX_EXTENSIONS OFF)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+        set(CMAKE_CXX_STANDARD 17)
+        set(CMAKE_CXX_STANDARD_REQUIRED ON)
+else()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Resolve Solution Directory (Parent of CMake Directory)
-set(SOLUTION_DIR ${CMAKE_SOURCE_DIR}/..)  
-
-# Include Paths
-include_directories(
-    ${SOLUTION_DIR}/armadillo/include       # Armadillo headers
-    ${SOLUTION_DIR}/vcpkg_installed/x64-windows/include  # VCPKG headers
-)
-
-
-
-# Library Paths
-link_directories(
-    ${SOLUTION_DIR}/armadillo/lib           # Armadillo libraries
-    ${SOLUTION_DIR}/OpenBlas                # OpenBLAS libraries
-)
+endif()
 
 # Source Files
 set(SOURCES 
@@ -46,11 +36,67 @@ set(HEADERS
 # Create Executable
 add_executable(Synapse ${SOURCES} ${HEADERS})
 
-# Link External Libraries
-target_link_libraries(Synapse PRIVATE 
-    ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
-    ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
-)
+
+# Resolve Solution Directory (Parent of CMake Directory)
+set(SOLUTION_DIR ${CMAKE_SOURCE_DIR}/..)  
+if(MSVC)
+        # Include Paths
+        include_directories(
+            ${SOLUTION_DIR}/armadillo/include       # Armadillo headers
+            ${SOLUTION_DIR}/vcpkg_installed/x64-windows/include  # VCPKG headers
+        )
+
+        # Library Paths
+        link_directories(
+            ${SOLUTION_DIR}/armadillo/lib           # Armadillo libraries
+            ${SOLUTION_DIR}/OpenBlas                # OpenBLAS libraries
+        )
+
+
+        # Link External Libraries
+        target_link_libraries(Synapse PRIVATE 
+            ${SOLUTION_DIR}/armadillo/lib/armadillo_x64d.lib
+            ${SOLUTION_DIR}/OpenBlas/libopenblas.lib
+        )
+
+
+
+elseif(LINUX)
+
+
+           # Include Paths
+        include_directories(
+             ${SOLUTION_DIR}/armadillo/include         
+             ${SOLUTION_DIR}/vcpkg_installed/x64-linux/include  # VCPKG headers
+             ${SOLUTION_DIR}/vcpkg_installed/x64-linux/include/eigen3  # VCPKG headers            
+        )
+
+        # Link External Libraries
+        target_link_libraries(Synapse PRIVATE 
+              ${SOLUTION_DIR}/vcpkg_installed/x64-linux/lib/libopenblas.a
+              ${SOLUTION_DIR}/armadillo/lib/libarmadillo.a
+        )
+elseif(APPLE)
+
+
+           # Include Paths
+        include_directories(
+             ${SOLUTION_DIR}/armadillo/include         
+             ${SOLUTION_DIR}/vcpkg_installed/x64-osx/include  # VCPKG headers
+             ${SOLUTION_DIR}/vcpkg_installed/x64-osx/include/eigen3  # VCPKG headers            
+        )
+
+        # Link External Libraries
+        target_link_libraries(Synapse PRIVATE 
+              ${SOLUTION_DIR}/vcpkg_installed/x64-osx/lib/libopenblas.a
+              ${SOLUTION_DIR}/armadillo/lib/libarmadillo.a
+        )
+endif()
+
+
+
+
+
 
 # Enable Debug Symbols in Debug Mode
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
