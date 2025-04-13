@@ -4,7 +4,12 @@ cmake_minimum_required(VERSION 3.15)
 project(Synapse LANGUAGES CXX)
 
 # Set C++ Standard
-if(LINUX or APPLE)
+if(LINUX)
+        set(CMAKE_CXX_EXTENSIONS OFF)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+        set(CMAKE_CXX_STANDARD 17)
+        set(CMAKE_CXX_STANDARD_REQUIRED ON)
+elseif(APPLE)
         set(CMAKE_CXX_EXTENSIONS OFF)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
         set(CMAKE_CXX_STANDARD 17)
