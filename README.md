@@ -17,7 +17,7 @@ still brewing 🍵
 - Wait for terminal to ask for target generators.
 
 
-<i>Installation of openblas dependency will take more time</i>
+<i>Total build will take time(about three spotify music)</i>
 
 </details>
 This will install dependency and configure Cmake for you and after configuration you will need to build the project using your generator (Xcode,Ninja,Make or Visual studio)
@@ -28,6 +28,13 @@ This will install dependency and configure Cmake for you and after configuration
 ### Linux (x64) 💽
 <details>
 
+Getting your system ready first.
+```bash
+sudo apt install cmake zip wget curl ninja build-essential pkg-config autoconf 
+libc++-dev libc++abi-dev
+
+```
+
 - ``git clone --recursive https://github.com/coderboyisongithub/Synapse.git``
 - Open terminal in same cloned directory as working directory.
 - It has bootstrap script for to ensure one click build. 
@@ -35,7 +42,7 @@ This will install dependency and configure Cmake for you and after configuration
 - `./bootstrap-linux.sh`
 - Wait for terminal to ask for target generators.
 
-<i>Installation of openblas dependency will take more time</i>
+<i>Total build will take time(about three spotify music)</i>
 
 </details>
 
