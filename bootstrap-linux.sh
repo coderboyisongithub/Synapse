@@ -114,3 +114,4 @@ done
 
 # Run CMake with the selected generator
 cmake ../Synapse -G "$SELECTED_GENERATOR"  -DCMAKE_CXX_COMPILER=clang++ 
+cmake --build .

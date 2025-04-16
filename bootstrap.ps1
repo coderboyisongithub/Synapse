@@ -126,3 +126,4 @@ do {
 } while ($true)  # Infinite loop until 'yes' is entered
  
 & cmake ../synapse -G $selected_generator 
+& cmake --build .
