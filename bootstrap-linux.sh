@@ -1,4 +1,17 @@
 #!/bin/bash
+cat << "EOF"
+     █████                                                        
+     ██                                                             
+     ███    ██   ██ ███████  ██████  ███████ █████  ██████          
+        ███  ██ ██  ██   ██  ██████  ██   ██ ████  ████████         
+         ███  ████  ██   ██ ██   ██  ██   ██    ███ ██              
+     █████     ██   ██   ██  ██████  ██████  █████   █████         
+             ███                     ██                             
+             █                       █                              
+EOF
+
+
+
 
 rm -rf  build
 # Define the local vcpkg directory within the cloned repository

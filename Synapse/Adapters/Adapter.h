@@ -2,6 +2,7 @@
 #include <Eigen/Core>
 #include <iostream>
 #include <stdio.h>
+
 #define checkfor(condition, message) \
     do { \
         if (!(condition)) { \

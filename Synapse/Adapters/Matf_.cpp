@@ -1,3 +1,11 @@
+
+#ifdef _DEBUG
+#define dbgnew new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define dbgnew new
+#endif
 #include "Matf_.h"
 /*
 -need to implement the following..
@@ -23,7 +31,7 @@ Matf::Matf(Matf& obj)
 {
 
 	//std::cerr << "\nmatf copy constructor";
-	impl = new Eigenadapter(*obj.impl); 
+	impl = dbgnew Eigenadapter(*obj.impl); 
 }
 
 
@@ -53,7 +61,9 @@ Matf::Matf(Eigenadapter obj,bool move)
 	}
 	case true:
 	{
-		impl = new Eigenadapter(std::move(obj));//? how to solve this?
+
+		//Eigenadapter tmp=std::move(obj)
+		impl = dbgnew Eigenadapter(std::move(obj));//? how to solve this?
 		break;
 	}
 	}

@@ -1,11 +1,18 @@
+
+
+
+
+
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
 
+#include <stdlib.h>
+
 
 #define ARMA_PRINT_EXCEPTIONS
-
 #include "Adapters/Matf_.h"
+
 
 //revise auto associative memory.(outer product)
 
@@ -20,9 +27,16 @@ TO WORK ON NEXT: dev branch build fails when cloned;
 
 int main()
 {
+
+	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+
 	
 	Matf w3{ {1,1},{1,1} };
 	Matf idt{ {1,0},{0,1} };
+
+
+
+	/*
 	//w2.print("weight02");
 	Matf w4 = w3;
 
@@ -40,11 +54,22 @@ int main()
 	(idt * idt).print("mul idt");
 
 	//w3.print("w3 after moved");// this will trigger error as w3 has been moved to w5;
+	*/
+
+
+
+		int* p = new int[10];
+		delete[] p;
+		std::cout << p[0]; // Intentional error
+		return 0;
+
 
 	
-	
-	
-	
+	while (1)
+	{
+		idt*w3;
+	}
+
 
 	return 0;
 }

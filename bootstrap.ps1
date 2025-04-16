@@ -1,3 +1,24 @@
+$asciiart=@"
+
+       :=-+.                         
+      :-   .-                        
+      -.     ::                      
+              .-                     
+   +*+++*.      =.           #%@@@:  
+ -=-:::-==@      :         =++==+#@@ 
+ =-::::--=+:=+++===#==++++-=+===++#@ 
+ .*-:::-==#         -      -++++*#@@ 
+   -####@:           ::      *%@@@.  
+                      :.             
+                        =     .-     
+                         -.   -.     
+
+                                                 
+"@
+Write-Host $asciiart
+
+
+
 # Define the local vcpkg directory within the cloned repository
 $vcpkgDir = "$PSScriptRoot\vcpkg"
 $vcpkgExe = "$vcpkgDir\vcpkg.exe"

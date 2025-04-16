@@ -1,3 +1,12 @@
+
+
+#ifdef _DEBUG
+#define dbgnew new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define dbgnew new
+#endif
 #include "Adapter.h"
 #include <typeinfo>
 
@@ -31,7 +40,7 @@ Eigenadapter::Eigenadapter(Eigenadapter&& obj)
 
 Eigenadapter::Eigenadapter(size_t row, size_t col)
 {
-	uptr = eigenptr(new Eigen::MatrixXf(row,col));
+	uptr = eigenptr(dbgnew Eigen::MatrixXf(row,col));
 	uptr->derived().Random();
 	this->print();
 
@@ -40,14 +49,14 @@ Eigenadapter::Eigenadapter(size_t row, size_t col)
 
 Eigenadapter::Eigenadapter(Eigen::MatrixXf mtx)
 {
-	uptr = eigenptr(new Eigen::MatrixXf(mtx));
+	uptr = eigenptr(dbgnew Eigen::MatrixXf(mtx));
 }
 
 
 Eigenadapter::Eigenadapter(std::initializer_list<std::initializer_list<float>> ilist)
 {
 
-	uptr = eigenptr(new Eigen::MatrixXf(ilist));
+	uptr = eigenptr(dbgnew Eigen::MatrixXf(ilist));
 
 }
 
