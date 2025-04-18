@@ -11,7 +11,7 @@ still brewing 🍵
 ### windows (x64) 🪟
 <details>
 
-- ``git clone --recursive https://github.com/coderboyisongithub/Synapse.git``
+- ``git clone --recursive --branch dev https://github.com/coderboyisongithub/Synapse.git``
 - Open powershell in same cloned directory as working directory. `powershell` or `pwsh` for powershell 7+
 - In powershell run `.\bootstrap.ps1`
 - Wait for terminal to ask for target generators.
@@ -37,7 +37,7 @@ sudo apt install clang libc++-dev libc++abi-dev
 ```
 
 
-- ``git clone --recursive https://github.com/coderboyisongithub/Synapse.git``
+- ``git clone --recursive --branch dev https://github.com/coderboyisongithub/Synapse.git``
 - Open terminal in same cloned directory as working directory.
 - It has bootstrap script for to ensure one click build. 
 - First change permission of bootstrap `chmod +x bootstrap-linux.sh`
