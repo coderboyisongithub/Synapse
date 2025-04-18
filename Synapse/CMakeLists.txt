@@ -44,7 +44,7 @@ add_executable(Synapse ${SOURCES} ${HEADERS})
 
 # Resolve Solution Directory (Parent of CMake Directory)
 set(SOLUTION_DIR ${CMAKE_SOURCE_DIR}/..)  
-if(MSVC)
+if(WIN32)
         # Include Paths
         include_directories(
             ${SOLUTION_DIR}/armadillo/include       # Armadillo headers
