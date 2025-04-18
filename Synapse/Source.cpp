@@ -27,8 +27,7 @@ TO WORK ON NEXT: why adapter dynamically allocates the dynamic matrx itself;
 
 int main()
 {
-	while (1)
-	{
+
 		Matf w3{ {1,1},{1,1} };
 		Matf idt{ {1,0},{0,1} };
 		//w2.print("weight02");
@@ -47,7 +46,7 @@ int main()
 		(idt + idt).print("sum idt");
 		(idt * idt).print("mul idt");
 
-	}
+	
 	//w3.print("w3 after moved");// this will trigger error as w3 has been moved to w5;
 	return 0;
 }
