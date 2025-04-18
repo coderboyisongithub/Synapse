@@ -10,7 +10,7 @@ class Matf
 	*/
 
 	
-	Eigenadapter* impl;  //
+	Eigenadapter* impl;  //pointer to Eigenadapter
 	Matf(Eigenadapter obj, bool move = false);
 
 public:
@@ -30,6 +30,8 @@ public:
 	
 	
 	Matf(Matf& obj);
+
+	~Matf();
 
 
 	void t();
@@ -51,6 +53,7 @@ public:
 	void operator=(Matf&& second);
 
 	Matf operator-(Matf& second);
+    void debug();
 
 
 	Matf operator+(Matf& second);

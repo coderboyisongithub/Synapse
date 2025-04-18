@@ -78,7 +78,14 @@ Matf::Matf(std::initializer_list<std::initializer_list<float>>list)
 	
 }
 
-
+Matf::~Matf()
+{
+	
+	// maft allocates adapter in heap. so matf cleans adapter responsibly
+	//adapter allocates matrix in heap. adapter cleans matrix responsible
+	delete impl;
+	impl = nullptr;
+}
 
 
 void Matf::t()
@@ -87,7 +94,11 @@ void Matf::t()
 	return;
 }
 
-
+void Matf::debug()
+{
+	std::cout<<"\n constructors called "<< impl->get().first;
+	std::cout <<"\n Destructors called "<<impl->get().second;
+}
 
 
 void Matf::print(std::string msg)

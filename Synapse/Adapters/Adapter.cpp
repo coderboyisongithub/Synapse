@@ -7,13 +7,15 @@
 
 Eigenadapter::Eigenadapter()
 {
-	uptr = eigenptr(new Eigen::MatrixXf(2, 2));
+	constructor++;
+	uptr = eigenptr(new Eigen::MatrixXf());
 }
 
 
 
 Eigenadapter::Eigenadapter(Eigenadapter& obj)
 {
+	//constructor++;
 	//std::cerr << "\n Adapter copy called";
 	uptr = eigenptr(new Eigen::MatrixXf(obj.uptr->derived()));
 }
@@ -21,10 +23,10 @@ Eigenadapter::Eigenadapter(Eigenadapter& obj)
 
 Eigenadapter::Eigenadapter(Eigenadapter&& obj)
 {
-	//std::cerr << "\n Adapter move called";
+	//constructor++;
 	uptr = std::move(obj.uptr); //what will this move?? pointer only or whole matrix ownership 
 	//..its a unique ptr..If I move then obj will have to be nullified otherwise its not unique
-
+	return;
 }
 
 
@@ -32,6 +34,7 @@ Eigenadapter::Eigenadapter(Eigenadapter&& obj)
 
 Eigenadapter::Eigenadapter(size_t row, size_t col)
 {
+	constructor++;
 	uptr = eigenptr(new Eigen::MatrixXf(row,col));
 	uptr->derived().Random();
 	this->print();
@@ -41,17 +44,31 @@ Eigenadapter::Eigenadapter(size_t row, size_t col)
 
 Eigenadapter::Eigenadapter(Eigen::MatrixXf mtx)
 {
+	constructor++;
+	
 	uptr = eigenptr(new Eigen::MatrixXf(mtx));
 }
 
 
 Eigenadapter::Eigenadapter(std::initializer_list<std::initializer_list<float>> ilist)
 {
+	constructor++;
 
 	uptr = eigenptr(new Eigen::MatrixXf(ilist));
 
 }
 
+
+Eigenadapter::~Eigenadapter()
+{
+	destructor++;
+	Eigen::EigenBase<Eigen::MatrixXf>* tmp = uptr.release();
+
+	Eigen::MatrixXf* alloc= &tmp->derived();
+	delete alloc;
+
+
+}
 
 //Member functions
 

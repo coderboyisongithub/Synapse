@@ -2,7 +2,8 @@
 #include <Eigen/Core>
 #include <iostream>
 #include <stdio.h>
-
+static int constructor=0;
+static int destructor=0;
 #define checkfor(condition, message) \
     do { \
         if (!(condition)) { \
@@ -28,6 +29,7 @@ public:
 	virtual Eigenadapter operator*(Eigenadapter &second) = 0;
 	virtual Eigenadapter operator+(Eigenadapter &second) = 0;
 	virtual Eigenadapter operator-(Eigenadapter &second) = 0;
+	virtual  std::pair<int, int> get() = 0;
 	//virtual void operator/(float first) = 0;
 
 
@@ -45,6 +47,7 @@ class Eigenadapter :public interface
 	so that the derived type like matrixXf can be accessed
 	*/
 	eigenptr uptr ;
+
 	
 public:
 
@@ -57,6 +60,7 @@ public:
 	Eigenadapter(size_t row, size_t col);
 	Eigenadapter(Eigen::MatrixXf mtx);
 	Eigenadapter(std::initializer_list<std::initializer_list<float>> ilist);
+	~Eigenadapter();
 
 	void t() const override;
 	void print(std::string msg = { " " }) const override;
@@ -75,6 +79,10 @@ public:
 	 Eigenadapter operator+(Eigenadapter &second) override;
 	 Eigenadapter operator-(Eigenadapter &second)override;// Matrix substraction
 	// void operator/(float first) override;//Elementwise scalar division
+	 std::pair<int,int> get()override
+	 {
+		 return std::pair<int,int>{constructor, destructor};
+	 }
 
 };
 

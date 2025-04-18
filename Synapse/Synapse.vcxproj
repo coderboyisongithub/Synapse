@@ -45,7 +45,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <InterproceduralOptimization>false</InterproceduralOptimization>
-    <EnableASAN>true</EnableASAN>
+    <EnableASAN>false</EnableASAN>
     <EnableFuzzer>false</EnableFuzzer>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -116,7 +116,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ShowIncludes>false</ShowIncludes>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointModel>Default</FloatingPointModel>
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -126,6 +126,8 @@
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <MinimalRebuild>false</MinimalRebuild>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <UseMSVC>false</UseMSVC>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
